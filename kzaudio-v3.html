@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KZ Audio Colombia — Audio de Precisión</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#04040c;--surf:#090912;--card:#0e0e1a;--border:rgba(255,255,255,0.07);
+  --accent:#3b82f6;--accent2:#60a5fa;--gold:#f59e0b;--text:#f1f0ff;--muted:#7c7a99;
+  --green:#10b981;
+}
+html{scroll-behavior:smooth;font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+/* Global headings use Bebas Neue */
+h1,h2,h3,.hero-title,.sec-title,.feat-title,.cta-title,.prod-name,.logo,.footer-logo,.promo-title,.why-title,.metric-val,.prod-price,.code-val{font-family:'Bebas Neue','Space Grotesk',sans-serif!important;letter-spacing:.5px}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(4,4,12,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);transition:all .3s}
+nav.scrolled{background:rgba(4,4,12,0.97)}
+.logo{font-size:20px;font-weight:400;letter-spacing:2px;color:var(--text);text-decoration:none;text-transform:uppercase}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;font-weight:500;transition:color .2s;letter-spacing:.6px;text-transform:uppercase}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:9px 22px;border-radius:0;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:6px;letter-spacing:1px;text-transform:uppercase}
+.nav-cta:hover{background:#2563eb}
+.nav-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--green);padding:4px 10px;border-radius:0;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+
+/* ── HERO — BLACK FRIDAY STYLE ── */
+.hero{height:100vh;min-height:640px;position:relative;overflow:hidden;padding-top:60px;background:#000}
+/* diagonal split background */
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:'';position:absolute;inset:0;background:linear-gradient(118deg,#000 0%,#000 52%,#0a1628 52%,#061022 100%)}
+.hero-bg::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(118deg,transparent,transparent 60px,rgba(255,255,255,.012) 60px,rgba(255,255,255,.012) 61px);
+  pointer-events:none}
+/* red accent stripe */
+.hero-stripe{position:absolute;top:0;bottom:0;left:48%;width:6px;background:var(--accent);z-index:3;transform:skewX(-8deg)}
+/* sale badge top right */
+.hero-sale-badge{position:absolute;top:90px;right:60px;z-index:10;text-align:center;width:130px;height:130px;border-radius:50%;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(59,130,246,.18),0 0 0 16px rgba(59,130,246,.07);animation:badge-pulse 2.5s ease-in-out infinite}
+@keyframes badge-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.hero-sale-badge .sb-up{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:rgba(255,255,255,.8);text-transform:uppercase}
+.hero-sale-badge .sb-pct{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;color:#fff}
+.hero-sale-badge .sb-dn{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,.8);text-transform:uppercase}
+
+/* LEFT content */
+.hero-left{position:absolute;top:0;left:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:center;padding:0 60px;z-index:5}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--accent)}
+.hero-title{font-family:'Bebas Neue',sans-serif!important;font-size:clamp(72px,9vw,128px);line-height:.87;letter-spacing:1px;text-transform:uppercase;margin-bottom:24px}
+.hero-title .line1{display:block;color:#fff}
+.hero-title .line2{display:block;color:var(--accent);text-shadow:0 0 60px rgba(59,130,246,.5)}
+.hero-tagline{display:flex;align-items:center;gap:12px;margin-bottom:40px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.hero-tagline-bar{width:3px;height:30px;background:var(--accent);flex-shrink:0}
+.hero-tagline-text{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.7}
+.hero-btns{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-main{background:var(--accent);color:#fff;padding:15px 32px;border-radius:0;font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;text-decoration:none;border:none;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px;letter-spacing:2px;text-transform:uppercase}
+.btn-main:hover{background:#1d4ed8;box-shadow:0 0 32px rgba(59,130,246,.4)}
+.btn-outline{color:rgba(255,255,255,.5);padding:15px 32px;font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:400;text-decoration:none;border:1px solid rgba(255,255,255,.15);background:transparent;transition:all .2s;display:inline-flex;align-items:center;gap:8px;letter-spacing:2px;text-transform:uppercase}
+.btn-outline:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.btn-outline::after{content:'→';transition:transform .2s}
+.btn-outline:hover::after{transform:translateX(4px)}
+.hero-metrics{display:flex;gap:40px;margin-top:44px;padding-top:36px;border-top:1px solid rgba(255,255,255,.07)}
+.metric-val{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:1px}
+.metric-val em{color:var(--accent);font-style:normal}
+.metric-lbl{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;letter-spacing:2px;text-transform:uppercase}
+
+/* RIGHT: product image */
+.hero-right{position:absolute;top:0;right:0;bottom:0;width:52%;z-index:2;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 55% 45%,rgba(29,78,216,.22) 0%,transparent 65%);z-index:1;pointer-events:none}
+.hero-product-img{width:85%;height:90%;object-fit:contain;object-position:center;position:relative;z-index:2;filter:drop-shadow(0 0 80px rgba(59,130,246,.35)) brightness(1.08) contrast(1.05);animation:hero-float 6s ease-in-out infinite}
+@keyframes hero-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.01)}}
+.hero-product-tint{position:absolute;inset:0;background:linear-gradient(to right,#000 0%,transparent 12%),linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 30%);z-index:3;pointer-events:none}
+/* particles */
+canvas#particles{position:absolute;top:0;left:0;width:50%;height:100%;pointer-events:none;z-index:1}
+/* hero text animations */
+@keyframes slide-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero-eyebrow{opacity:0;animation:slide-up .5s .05s ease forwards}
+.hero-title{opacity:0;animation:slide-up .55s .15s ease forwards}
+.hero-tagline{opacity:0;animation:slide-up .55s .25s ease forwards}
+.hero-btns{opacity:0;animation:slide-up .55s .35s ease forwards}
+.hero-metrics{opacity:0;animation:slide-up .55s .45s ease forwards}
+.ticker{background:var(--surf);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);overflow:hidden;padding:14px 0}
+.ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite}
+.ticker-item{white-space:nowrap;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;padding:0 36px;display:flex;align-items:center;gap:10px}
+.t-sep{color:var(--accent);font-size:7px}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#productos{padding:80px 40px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,56px);letter-spacing:1px;line-height:1;color:var(--text)}
+.prod-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
+.see-all{color:var(--accent);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;display:flex;align-items:center;gap:4px}
+.see-all:hover{gap:8px}
+/* 6 equal columns, max-width centrado */
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:12px;
+  max-width:1400px;
+  margin:0 auto;
+}
+.prod-card{background:#0c0c18;border:1px solid rgba(255,255,255,.07);border-radius:0;overflow:hidden;text-decoration:none;color:var(--text);transition:all .3s;cursor:pointer;position:relative}
+.prod-card:hover{border-color:rgba(59,130,246,.5);transform:translateY(-5px);box-shadow:0 20px 44px rgba(0,0,0,.6)}
+/* imagen cuadrada con fondo oscuro uniforme */
+.prod-img-wrap{
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:#d1d1ff;
+  position:relative;
+  overflow:hidden;
+}
+.prod-img-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,rgba(59,130,246,.08),transparent 100%)}
+.prod-img-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transition:transform .4s;
+  /* eliminar fondo blanco de imágenes con mix-blend-mode */
+  mix-blend-mode:multiply;
+  filter:brightness(1.15) contrast(1.1);
+  position:relative;z-index:1;
+}
+/* fallback para imágenes que no tengan fondo blanco */
+.prod-img-wrap img.no-blend{mix-blend-mode:normal}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.08) translateY(-4px)}
+.badge{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:0;font-size:8px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;z-index:2}
+.badge-hot{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
+.badge-new{background:var(--accent);color:#fff}
+.badge-top{background:rgba(16,185,129,.85);color:#fff}
+.prod-body{padding:14px 18px 18px;border-top:1px solid rgba(255,255,255,.05)}
+.prod-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.8px;margin-bottom:3px}
+.prod-type{font-size:10px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;margin-bottom:12px}
+.prod-footer{display:flex;align-items:center;justify-content:space-between}
+.prod-price{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700}
+.prod-price small{font-size:10px;font-weight:400;color:var(--muted);margin-right:2px}
+.cart-btn{width:32px;height:32px;border-radius:0;background:var(--accent);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.cart-btn:hover{background:#2563eb;transform:scale(1.08)}
+.cart-btn.added{background:var(--green)}
+.rating{display:flex;align-items:center;gap:4px;margin-bottom:10px}
+.stars{color:var(--gold);font-size:10px;letter-spacing:1px}
+.rating-num{font-size:10px;color:var(--muted)}
+#destacado{background:var(--surf);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:80px 40px}
+.featured-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto}
+.feat-img-wrap{position:relative;height:460px;display:flex;align-items:center;justify-content:center}
+.feat-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 70%);animation:pulse-glow 4s ease-in-out infinite}
+@keyframes pulse-glow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.2);opacity:1}}
+.feat-main-img{position:relative;z-index:2;width:320px;height:320px;object-fit:contain;filter:drop-shadow(0 0 70px rgba(59,130,246,.4));animation:float 6s ease-in-out infinite}
+.feat-label{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.08);border:0.5px solid rgba(245,158,11,.3);color:var(--gold);padding:6px 12px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.feat-title{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:900;letter-spacing:-2px;line-height:.95;margin-bottom:14px}
+.feat-desc{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:28px}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
+.spec{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:0;padding:12px 14px}
+.spec-v{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--accent2)}
+.spec-k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.feat-btns{display:flex;gap:12px;flex-wrap:wrap}
+#nosotros{padding:80px 40px}
+.why-center{text-align:center;margin-bottom:0}
+.why-sub{color:var(--muted);font-size:15px;line-height:1.7;max-width:460px;margin:0 auto 48px}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:0;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.why-card:hover::before{transform:scaleX(1)}
+.why-card:hover{border-color:rgba(59,130,246,.2);transform:translateY(-3px)}
+.why-icon-wrap{width:44px;height:44px;border-radius:11px;background:rgba(59,130,246,.1);border:0.5px solid rgba(59,130,246,.18);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.why-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin-bottom:8px;letter-spacing:-.2px}
+.why-text{font-size:13px;color:var(--muted);line-height:1.65}
+#reviews{background:var(--surf);border-top:0.5px solid var(--border);padding:80px 40px;overflow:hidden}
+.reviews-outer{overflow:hidden;margin-top:48px}
+.reviews-track{display:flex;gap:16px;width:max-content;animation:reviews-scroll 45s linear infinite}
+@keyframes reviews-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rev-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:0;padding:22px;width:280px;flex-shrink:0}
+.rev-stars{color:var(--gold);font-size:12px;letter-spacing:1.5px;margin-bottom:10px}
+.rev-text{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;font-style:italic}
+.rev-author{font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.rev-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);opacity:.7;flex-shrink:0}
+#contacto{padding:80px 40px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(59,130,246,.12) 0%,rgba(96,165,250,.06) 50%,transparent 100%);border-top:0.5px solid rgba(59,130,246,.15)}
+.cta-inner{text-align:center;position:relative;z-index:2;max-width:600px;margin:0 auto}
+.cta-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px}
+.cta-desc{color:var(--muted);font-size:16px;line-height:1.7;margin-bottom:36px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-wa{background:#25d366;color:#fff;padding:14px 28px;border-radius:0;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;letter-spacing:.8px;text-transform:uppercase}
+.btn-wa:hover{background:#128c4a}
+.btn-ig{color:rgba(255,255,255,.5);padding:14px 24px;border-radius:0;font-size:12px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .2s;display:inline-flex;align-items:center;gap:8px;letter-spacing:.8px;text-transform:uppercase}
+.btn-ig:hover{color:var(--text);border-color:rgba(255,255,255,.28)}
+.cta-trust{display:flex;align-items:center;gap:24px;justify-content:center;margin-top:36px;padding-top:28px;border-top:0.5px solid var(--border);flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.trust-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+footer{background:var(--surf);border-top:0.5px solid var(--border);padding:56px 40px 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;padding-bottom:36px;border-bottom:0.5px solid var(--border)}
+.footer-logo{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:900;color:var(--text);margin-bottom:10px}
+.footer-logo span{color:var(--accent)}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px}
+footer h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text);margin-bottom:14px}
+footer ul{list-style:none}
+footer ul li{margin-bottom:9px}
+footer ul a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .2s}
+footer ul a:hover{color:var(--text)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:12px;color:var(--muted)}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:998;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:wa-pulse 3s ease-in-out infinite;transition:transform .2s}
+.wa-float:hover{transform:scale(1.12) !important;animation:none;box-shadow:0 6px 28px rgba(37,211,102,.55)}
+@keyframes wa-pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+#categorias{padding:80px 40px 0}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:48px}
+.cat-card{border-radius:0;overflow:hidden;aspect-ratio:1/1;position:relative;cursor:pointer;display:flex;align-items:flex-end;text-decoration:none;transition:transform .3s}
+.cat-card:hover{transform:scale(1.025)}
+.cat-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:brightness(.75)}
+.cat-card:hover img{transform:scale(1.07)}
+.cat-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,12,.92) 0%,rgba(4,4,12,.08) 60%)}
+.cat-body{position:relative;z-index:2;padding:18px;width:100%}
+.cat-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.cat-count{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.promo{padding:0 40px 80px}
+.promo-inner{background:var(--card);border:1px solid rgba(59,130,246,.18);border-radius:0;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;flex-wrap:wrap}
+.promo-inner::before{content:'';position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 70%);pointer-events:none}
+.promo-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.1);border:0.5px solid rgba(245,158,11,.3);color:var(--gold);padding:5px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
+.promo-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
+.promo-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.promo-code{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);border-radius:0;padding:14px 22px;text-align:center;flex-shrink:0}
+.code-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.code-val{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:900;color:var(--accent2);letter-spacing:2px}
+.code-desc{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:1200px){
+
+  .prod-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .hero-title{
+    font-size:80px;
+  }
+
+  .featured-inner{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media (max-width:768px){
+
+  nav{
+    padding:0 15px;
+    flex-wrap:wrap;
+    height:auto;
+    min-height:60px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    min-height:auto;
+    height:auto;
+    padding:100px 0 50px;
+  }
+
+  .hero-left,
+  .hero-right{
+    position:relative;
+    width:100%;
+  }
+
+  .hero-left{
+    padding:20px;
+    text-align:center;
+  }
+
+  .hero-right{
+    height:350px;
+  }
+
+  .hero-stripe,
+  .hero-sale-badge{
+    display:none;
+  }
+
+  .hero-title{
+    font-size:52px;
+  }
+
+  .hero-btns{
+    justify-content:center;
+  }
+
+  .hero-metrics{
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+
+  .prod-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .cat-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+
+  .specs-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:10px;
+    text-align:center;
+  }
+
+}
+
+@media (max-width:480px){
+
+  #productos,
+  #categorias,
+  #nosotros,
+  #reviews,
+  #contacto,
+  #destacado{
+    padding:60px 15px;
+  }
+
+  .prod-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cat-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-title{
+    font-size:42px;
+  }
+
+  .sec-title{
+    font-size:32px;
+  }
+
+  .btn-main,
+  .btn-outline,
+  .btn-wa,
+  .btn-ig{
+    width:100%;
+    justify-content:center;
+  }
+
+  .promo-inner{
+    padding:20px;
+  }
+
+  .cta-btns{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="logo" href="#"><span>XS</span>TÉCNOLOGIA </a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#categorias">Categorías</a></li>
+    <li><a href="#destacado">Destacado</a></li>
+    <li><a href="#nosotros">Por qué nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="nav-badge">🇨🇴 Colombia</span>
+    <a class="nav-cta" href="https://wa.me/573122577649" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Asesoría gratis
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+
+  <!-- SALE BADGE -->
+  <div class="hero-sale-badge">
+    <span class="sb-up">hasta</span>
+    <span class="sb-pct">40%</span>
+    <span class="sb-dn">descuento</span>
+  </div>
+
+  <!-- LEFT: text content -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">Envíos a toda Colombia</div>
+    <h1 class="hero-title">
+      <span class="line1">AUDIO</span>
+      <span class="line2">Y PERIFÉRICOS</span>
+    </h1>
+    <div class="hero-tagline">
+      <div class="hero-tagline-bar"></div>
+      <div class="hero-tagline-text">Calidad superior al alcance de todos<br>Distribuidores oficiales · Contra entrega</div>
+    </div>
+    <div class="hero-btns">
+      <a class="btn-main" href="#productos">Ver catálogo</a>
+      <a class="btn-outline" href="https://wa.me/573122577649" target="_blank">Explorar productos</a>
+    </div>
+    <div class="hero-metrics">
+      <div><div class="metric-val">19<em>+</em></div><div class="metric-lbl">Modelos activos</div></div>
+      <div><div class="metric-val">2<em>k+</em></div><div class="metric-lbl">Clientes felices</div></div>
+      <div><div class="metric-val">48<em>h</em></div><div class="metric-lbl">Entrega express</div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: product image panel -->
+  <div class="hero-right">
+    <div class="hero-product-tint"></div>
+    <img class="hero-product-img" src="https://png.pngtree.com/png-vector/20250321/ourmid/pngtree-wireless-headphone-png-image_15830312.png" alt="KZ IEM Premium">
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">In Ears AUDIO <span class="t-sep">◆</span> Bluetooth Modules <span class="t-sep">◆</span> Cables Premium <span class="t-sep">◆</span> Accesorios <span class="t-sep">◆</span> Monitoreo Pro <span class="t-sep">◆</span> Contra Entrega <span class="t-sep">◆</span> Asesoría Gratis <span class="t-sep">◆</span></span>
+    <span class="ticker-item">In Ears AUDIO <span class="t-sep">◆</span> Bluetooth Modules <span class="t-sep">◆</span> Cables Premium <span class="t-sep">◆</span> Accesorios <span class="t-sep">◆</span> Monitoreo Pro <span class="t-sep">◆</span> Contra Entrega <span class="t-sep">◆</span> Asesoría Gratis <span class="t-sep">◆</span></span>
+  </div>
+</div>
+
+<section id="productos">
+  <div class="prod-header reveal" style="max-width:1400px;margin:0 auto 36px">
+    <div>
+      <div class="sec-label">Catálogo completo</div>
+      <div class="sec-title">In Ears AUDIO</div>
+    </div>
+    <a class="see-all" href="#">Ver todos →</a>
+  </div>
+  <div class="prod-grid">
+    <a class="prod-card reveal" href="#">
+      <div class="prod-img-wrap"><span class="badge badge-hot">Popular</span><img src="https://panamericana.vtexassets.com/arquivos/ids/625195/Audifonos-inalambricos-de-conduccion-abierta-AUT201N-negros.jpg?v=638997039076070000" alt="EDX LITE"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(412)</span></div>
+        <div class="prod-name">EDX LITE</div><div class="prod-type">Single Dynamic</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>38.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+    <a class="prod-card reveal d1" href="#">
+      <div class="prod-img-wrap"><img src="https://www.mipcparquecentral.com/cdn/shop/files/imagen-auriculares_g733_audifonos_inalambricos_con_microfono_azul-1.jpg?v=1709752195" alt="EDX PRO"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(287)</span></div>
+        <div class="prod-name">EDX PRO</div><div class="prod-type">1DD Dinámico</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>46.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+    <a class="prod-card reveal d2" href="#">
+      <div class="prod-img-wrap"><span class="badge badge-new">Nuevo</span><img src="https://www.steren.com.co/media/catalog/product/cache/0236bbabe616ddcff749ccbc14f38bf2/image/22680baa9/audifonos-bluetooth-con-bateria-de-hasta-50-h.jpg" alt="CASTOR BASS"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(156)</span></div>
+        <div class="prod-name">CASTOR BASS</div><div class="prod-type">Dual Dynamic</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>90.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+    <a class="prod-card reveal d3" href="#">
+      <div class="prod-img-wrap"><span class="badge badge-top">Top</span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Q48eToI4Xap8YXk8nHJxHJkvLAW9HqxeTDdA9TgKVsQhRcADe7tvLr0&s=10" alt="ZSX TERMINATOR"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(342)</span></div>
+        <div class="prod-name">ZSX TERMINATOR</div><div class="prod-type">1DD + 5BA · 6 drivers</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>199.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+    <a class="prod-card reveal" href="#">
+      <div class="prod-img-wrap"><img src="https://panamericana.vtexassets.com/arquivos/ids/625195/Audifonos-inalambricos-de-conduccion-abierta-AUT201N-negros.jpg?v=638997039076070000" alt="KZ ZAR"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(198)</span></div>
+        <div class="prod-name">KZ ZAR</div><div class="prod-type">1DD + 7BA</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>260.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+    <a class="prod-card reveal d1" href="#">
+      <div class="prod-img-wrap"><span class="badge badge-hot">Flagship</span><img src="https://www.mipcparquecentral.com/cdn/shop/files/imagen-auriculares_g733_audifonos_inalambricos_con_microfono_azul-1.jpg?v=1709752195" alt="ZENITH"></div>
+      <div class="prod-body">
+        <div class="rating"><span class="stars">★★★★★</span><span class="rating-num">(89)</span></div>
+        <div class="prod-name">ZENITH</div><div class="prod-type">Tribrid · Top Tier</div>
+        <div class="prod-footer"><div class="prod-price"><small>COP </small>330.000</div><button class="cart-btn">+</button></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="promo reveal">
+  <div class="promo-inner">
+    <div>
+      <div class="promo-tag">⚡ Oferta limitada</div>
+      <div class="promo-title">Combo IEM + Módulo Bluetooth</div>
+      <p class="promo-desc">Compra cualquier IEM y obtén el módulo AZ09 con 20% de descuento. Oferta válida esta semana.</p>
+    </div>
+    <div class="promo-code">
+      <div class="code-lbl">Código de descuento</div>
+      <div class="code-val">KZ20BT</div>
+      <div class="code-desc">Al pedir por WhatsApp</div>
+    </div>
+    <a class="btn-main" href="https://wa.me/573122577649" target="_blank" style="flex-shrink:0">Aprovechar oferta →</a>
+  </div>
+</div>
+
+<section id="categorias">
+  <div class="reveal">
+    <div class="sec-label">Explora por tipo</div>
+    <div class="sec-title">Categorías</div>
+  </div>
+  <div class="cat-grid">
+    <a class="cat-card reveal" href="#"><img src="https://panamericana.vtexassets.com/arquivos/ids/625195/Audifonos-inalambricos-de-conduccion-abierta-AUT201N-negros.jpg?v=638997039076070000" alt="In Ears"><div class="cat-ov"></div><div class="cat-body"><div class="cat-name">In Ears</div><div class="cat-count">19 modelos</div></div></a>
+    <a class="cat-card reveal d1" href="#"><img src="https://www.mipcparquecentral.com/cdn/shop/files/imagen-auriculares_g733_audifonos_inalambricos_con_microfono_azul-1.jpg?v=1709752195" alt="Bluetooth"><div class="cat-ov"></div><div class="cat-body"><div class="cat-name">Módulos Bluetooth</div><div class="cat-count">2 modelos</div></div></a>
+    <a class="cat-card reveal d2" href="#"><img src="https://www.steren.com.co/media/catalog/product/cache/0236bbabe616ddcff749ccbc14f38bf2/image/22680baa9/audifonos-bluetooth-con-bateria-de-hasta-50-h.jpg" alt="Accesorios"><div class="cat-ov"></div><div class="cat-body"><div class="cat-name">Accesorios</div><div class="cat-count">12 modelos</div></div></a>
+    <a class="cat-card reveal d3" href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Q48eToI4Xap8YXk8nHJxHJkvLAW9HqxeTDdA9TgKVsQhRcADe7tvLr0&s=10" alt="Monitoreo"><div class="cat-ov"></div><div class="cat-body"><div class="cat-name">Monitoreo</div><div class="cat-count">3 modelos</div></div></a>
+  </div>
+</section>
+
+<section id="destacado">
+  <div class="featured-inner">
+    <div class="feat-img-wrap reveal">
+      <div class="feat-glow"></div>
+      <img class="feat-main-img" src="https://www.steren.com.co/media/catalog/product/cache/0236bbabe616ddcff749ccbc14f38bf2/image/22680baa9/audifonos-bluetooth-con-bateria-de-hasta-50-h.jpg" alt="ZSX Terminator">
+    </div>
+    <div class="reveal d1">
+      <div class="feat-label">★ Producto del mes</div>
+      <div class="feat-title">ZSX<br>TERMINATOR</div>
+      <p class="feat-desc">Seis drivers en armonía perfecta. La herramienta de estudio más completa en su rango de precio. Híbrido 1DD + 5BA con palco sonoro de nivel profesional.</p>
+      <div class="specs-grid">
+        <div class="spec"><div class="spec-v">6</div><div class="spec-k">Drivers totales</div></div>
+        <div class="spec"><div class="spec-v">5BA</div><div class="spec-k">Balanced Armature</div></div>
+        <div class="spec"><div class="spec-v">20Hz</div><div class="spec-k">Frecuencia baja</div></div>
+        <div class="spec"><div class="spec-v">★★★★★</div><div class="spec-k">342 reseñas</div></div>
+      </div>
+      <div class="feat-btns">
+        <a class="btn-main" href="https://wa.me/573122577649" target="_blank">Pedir ahora — COP 199.000</a>
+        <a class="btn-outline" href="#">Ver especificaciones</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="why-center reveal">
+    <div class="sec-label">Por qué elegirnos</div>
+    <div class="sec-title" style="max-width:480px;margin:0 auto 12px">Nuestra diferencia</div>
+    <p class="why-sub">Más que una tienda, somos tu asesor de audio en Colombia.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon-wrap">🎧</div><div class="why-title">Asesoría antes y después</div><p class="why-text">No vendemos specs, resolvemos problemas. Te guiamos para encontrar el equipo ideal para tu uso y presupuesto.</p></div>
+    <div class="why-card reveal d1"><div class="why-icon-wrap">🏆</div><div class="why-title">Marcas de confianza</div><p class="why-text">Solo trabajamos con las marcas más reconocidas del audio. Garantía y respaldo en cada compra.</p></div>
+    <div class="why-card reveal d2"><div class="why-icon-wrap">🚚</div><div class="why-title">Entrega rápida nacional</div><p class="why-text">Interrapidísimo y Coordinadora a toda Colombia. Rápido, seguro y con seguimiento en tiempo real.</p></div>
+    <div class="why-card reveal d3"><div class="why-icon-wrap">💳</div><div class="why-title">Pago contra entrega</div><p class="why-text">Paga solo cuando recibas tu pedido. Sin riesgos, sin complicaciones. Tu tranquilidad primero.</p></div>
+    <div class="why-card reveal d1"><div class="why-icon-wrap">🔧</div><div class="why-title">Personalización premium</div><p class="why-text">Grabado y customización exclusiva para hacer tus IEMs únicos e irrepetibles.</p></div>
+    <div class="why-card reveal d2"><div class="why-icon-wrap">⭐</div><div class="why-title">+2.000 clientes felices</div><p class="why-text">Más de dos mil colombianos confían en nosotros. Reseñas reales, satisfacción verificada.</p></div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div style="text-align:center" class="reveal">
+    <div class="sec-label">Opiniones reales</div>
+    <div class="sec-title">Lo que dicen nuestros clientes</div>
+  </div>
+  <div class="reviews-outer">
+    <div class="reviews-track">
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Excelente atención, me asesoraron muy bien. Los EDX PRO llegaron rápido y el sonido es increíble para el precio."</p><div class="rev-author"><div class="rev-avatar"></div>Sebastián M. — Bogotá</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Compré el combo AZ09 + Castor Bass y quedé enamorado. La calidad superó mis expectativas por mucho."</p><div class="rev-author"><div class="rev-avatar"></div>Valentina R. — Medellín</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Los productos llegan bien empacados y en los tiempos prometidos. Ya van tres compras y siempre quedo satisfecho."</p><div class="rev-author"><div class="rev-avatar"></div>Felipe C. — Cali</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Me ayudaron a elegir según mi presupuesto. Al final me fui con los ZAR y no me arrepiento para nada."</p><div class="rev-author"><div class="rev-avatar"></div>Daniela P. — Barranquilla</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Envío rapidísimo a Montería, solo tardó 2 días. Los IEMs llegaron perfectos. Atención impecable."</p><div class="rev-author"><div class="rev-avatar"></div>Andrés G. — Montería</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"6 meses usando los Castor Pro para mezclar y son increíbles. Separación de frecuencias de nivel pro."</p><div class="rev-author"><div class="rev-avatar"></div>Laura T. — Bucaramanga</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Gran variedad y precios honestos. Los KZ Zenith son top tier. El empaque llega impecable siempre."</p><div class="rev-author"><div class="rev-avatar"></div>Ricardo V. — Ibagué</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"La asesoría pre-venta fue clave. Dudé mucho pero compré y no me arrepiento. Relación calidad-precio increíble."</p><div class="rev-author"><div class="rev-avatar"></div>Paola S. — Cartagena</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Excelente atención, me asesoraron muy bien. Los EDX PRO llegaron rápido y el sonido es increíble para el precio."</p><div class="rev-author"><div class="rev-avatar"></div>Sebastián M. — Bogotá</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Compré el combo AZ09 + Castor Bass y quedé enamorado. La calidad superó mis expectativas por mucho."</p><div class="rev-author"><div class="rev-avatar"></div>Valentina R. — Medellín</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Los productos llegan bien empacados y en los tiempos prometidos. Ya van tres compras y siempre quedo satisfecho."</p><div class="rev-author"><div class="rev-avatar"></div>Felipe C. — Cali</div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-text">"Me ayudaron a elegir según mi presupuesto. Al final me fui con los ZAR y no me arrepiento para nada."</p><div class="rev-author"><div class="rev-avatar"></div>Daniela P. — Barranquilla</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="cta-inner">
+    <div class="sec-label reveal" style="text-align:center">Hablemos</div>
+    <div class="cta-title reveal">¿Listo para escuchar diferente?</div>
+    <p class="cta-desc reveal">Habla con nuestros asesores ahora. Te ayudamos a elegir el IEM perfecto para tu presupuesto y uso real.</p>
+    <div class="cta-btns reveal">
+      <a class="btn-wa" href="https://wa.me/573122577649" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Abrir WhatsApp ahora
+      </a>
+      <a class="btn-ig" href="https://www.instagram.com/kz_audio_" target="_blank">📷 Ver Instagram →</a>
+    </div>
+    <div class="cta-trust reveal">
+      <div class="trust-item"><div class="trust-dot"></div>Contra entrega disponible</div>
+      <div class="trust-item"><div class="trust-dot"></div>Respuesta en minutos</div>
+      <div class="trust-item"><div class="trust-dot"></div>+2.000 clientes satisfechos</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span>KZ</span> Audio Colombia</div>
+      <p class="footer-desc">Audio profesional para músicos, productores, ingenieros de sonido y creadores de contenido en Colombia.</p>
+    </div>
+    <div>
+      <h4>Productos</h4>
+      <ul><li><a href="#">In Ears</a></li><li><a href="#">Módulos BT</a></li><li><a href="#">Accesorios</a></li><li><a href="#">Monitoreo</a></li></ul>
+    </div>
+    <div>
+      <h4>Información</h4>
+      <ul><li><a href="#">Garantía</a></li><li><a href="#">Envíos</a></li><li><a href="#">Guía compra</a></li><li><a href="#">FAQ</a></li></ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul><li><a href="https://wa.me/573122577649" target="_blank">WhatsApp</a></li><li><a href="https://www.instagram.com/kz_audio_" target="_blank">@kz_audio_</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 KZ Audio Colombia — Todos los derechos reservados</div>
+    <div style="font-size:11px;color:var(--muted)">Hecho con ♥ para audiophiles colombianos</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/573122577649" target="_blank">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.cart-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.preventDefault();e.stopPropagation();
+    btn.textContent='✓';btn.classList.add('added');
+    setTimeout(()=>{btn.textContent='+';btn.classList.remove('added')},1400);
+  });
+});
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+const heroEl=document.querySelector('.hero');
+let W,H,dots=[];
+function resize(){W=canvas.width=heroEl.offsetWidth/2;H=canvas.height=heroEl.offsetHeight;canvas.style.width=(heroEl.offsetWidth/2)+'px';canvas.style.height=heroEl.offsetHeight+'px'}
+resize();window.addEventListener('resize',()=>{resize();init()});
+function init(){dots=[];for(let i=0;i<50;i++)dots.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.6+.2,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,a:Math.random()*.3+.08})}
+init();
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  dots.forEach(d=>{
+    d.x+=d.vx;d.y+=d.vy;
+    if(d.x<0)d.x=W;if(d.x>W)d.x=0;
+    if(d.y<0)d.y=H;if(d.y>H)d.y=0;
+    ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(96,165,250,${d.a})`;ctx.fill();
+  });
+  dots.forEach((a,i)=>{dots.slice(i+1).forEach(b=>{
+    const dist=Math.hypot(a.x-b.x,a.y-b.y);
+    if(dist<90){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(59,130,246,${.08*(1-dist/90)})`;ctx.lineWidth=.5;ctx.stroke()}
+  })});
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
